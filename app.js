@@ -18,6 +18,8 @@
   function render(){
     const today=localDate(),month=today.slice(0,7),todayEntries=state.entries.filter(e=>e.date===today),monthEntries=state.entries.filter(e=>e.date.startsWith(month));
     const day=totals(todayEntries),monthTotals=totals(monthEntries),balance=day.income-day.expense,monthBalance=monthTotals.income-monthTotals.expense;
+    const allTimeTotals=totals(state.entries),totalBalance=allTimeTotals.income-allTimeTotals.expense;
+    const totalBalanceCard=$('totalBalanceCard');totalBalanceCard.classList.toggle('balance-positive',totalBalance>0);totalBalanceCard.classList.toggle('balance-negative',totalBalance<0);totalBalanceCard.classList.toggle('balance-neutral',totalBalance===0);$('totalBalance').textContent=(totalBalance>0?'+':totalBalance<0?'−':'')+money(Math.abs(totalBalance));
     $('todayTotal').textContent=money(day.income);$('todayCount').textContent=todayEntries.filter(e=>e.type==='income').length+' ingresos';
     $('averageValue').textContent=money(day.expense);$('expenseCount').textContent=todayEntries.filter(e=>e.type==='expense').length+' gastos';
     $('monthTotal').textContent=money(monthBalance);$('monthCount').textContent=money(monthTotals.income)+' ingresos · '+money(monthTotals.expense)+' gastos';
