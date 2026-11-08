@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="app.js?v=2" defer></script>
+  <script src="app.js?v=3" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -42,6 +42,11 @@
       <section class="welcome-row">
         <div><p class="eyebrow" id="todayLabel">TU RESUMEN</p><h1>Tu trabajo, tus resultados<span>.</span></h1><p class="subtitle">Controlá tus ingresos, gastos y el saldo real de cada día.</p></div>
         <button class="date-chip" id="todayChip" type="button"><span>▣</span><span id="todayDate"></span></button>
+      </section>
+
+      <section class="total-balance-card balance-neutral" id="totalBalanceCard" aria-live="polite">
+        <div class="total-balance-copy"><span class="total-balance-label">BALANCE TOTAL</span><strong>Tu saldo acumulado</strong><small>Todos los ingresos menos todos los gastos registrados</small></div>
+        <div class="total-balance-amount" id="totalBalance">$ 0</div>
       </section>
 
       <section class="stats-grid" aria-label="Resumen del día">
