@@ -22,7 +22,7 @@
       <div class="side-label">ESPACIO DE TRABAJO</div>
       <nav class="side-nav">
         <a class="nav-link active" href="#dashboard"><span class="nav-icon">▦</span> Resumen</a>
-        <a class="nav-link" href="#registrar"><span class="nav-icon">＋</span> Nuevo ingreso</a>
+        <a class="nav-link" href="#registrar"><span class="nav-icon">＋</span> Nuevo movimiento</a>
         <a class="nav-link" href="#estadisticas"><span class="nav-icon">▥</span> Estadísticas</a>
         <a class="nav-link" href="#historial"><span class="nav-icon">◷</span> Historial</a>
       </nav>
@@ -40,15 +40,15 @@
       </header>
 
       <section class="welcome-row">
-        <div><p class="eyebrow" id="todayLabel">TU RESUMEN</p><h1>Tu trabajo, tus resultados<span>.</span></h1><p class="subtitle">Llevá el control de lo que ganás, día a día.</p></div>
+        <div><p class="eyebrow" id="todayLabel">TU RESUMEN</p><h1>Tu trabajo, tus resultados<span>.</span></h1><p class="subtitle">Controlá tus ingresos, gastos y el saldo real de cada día.</p></div>
         <button class="date-chip" id="todayChip" type="button"><span>▣</span><span id="todayDate"></span></button>
       </section>
 
       <section class="stats-grid" aria-label="Resumen del día">
         <article class="stat-card primary-stat">
-          <div class="stat-top"><span>Ganado hoy</span><span class="stat-icon">↗</span></div>
+          <div class="stat-top"><span>Ingresos de hoy</span><span class="stat-icon">↗</span></div>
           <div class="stat-value" id="todayTotal">$ 0</div>
-          <div class="stat-foot"><span class="trend-pill" id="todayCount">0 registros</span><span>Ingresos registrados</span></div>
+          <div class="stat-foot"><span class="trend-pill" id="todayCount">0 registros</span><span>Entradas registradas</span></div>
           <div class="stat-decoration"></div>
         </article>
         <article class="stat-card">
@@ -58,23 +58,23 @@
           <div class="stat-foot"><span id="goalPercent">0% alcanzado</span><span id="goalRemaining">Definí tu meta</span></div>
         </article>
         <article class="stat-card">
-          <div class="stat-top"><span>Promedio diario</span><span class="stat-icon soft-purple">⌁</span></div>
+          <div class="stat-top"><span>Gastos de hoy</span><span class="stat-icon soft-purple">⌁</span></div>
           <div class="stat-value" id="averageValue">$ 0</div>
           <div class="stat-foot"><span id="averageDays">Últimos 7 días</span><span>Promedio de ingresos</span></div>
         </article>
         <article class="stat-card">
-          <div class="stat-top"><span>Total del mes</span><span class="stat-icon soft-orange">▤</span></div>
+          <div class="stat-top"><span>Balance del mes</span><span class="stat-icon soft-orange">▤</span></div>
           <div class="stat-value" id="monthTotal">$ 0</div>
-          <div class="stat-foot"><span id="monthCount">0 registros</span><span>Acumulado mensual</span></div>
+          <div class="stat-foot"><span id="monthCount">0 registros</span><span>Ingresos menos gastos</span></div>
         </article>
       </section>
 
       <section class="content-grid">
         <article class="panel quick-panel" id="registrar">
-          <div class="panel-heading"><div><p class="eyebrow">REGISTRO EXPRESS</p><h2>Sumá un ingreso</h2></div><span class="heading-icon">＋</span></div>
-          <p class="panel-description">Anotá lo que ganaste. Es rápido y queda guardado.</p>
+          <div class="panel-heading"><div><p class="eyebrow">REGISTRO EXPRESS</p><h2 id="movementTitle">Sumá un ingreso</h2></div><span class="heading-icon">＋</span></div>
+          <p class="panel-description" id="movementDescription">Anotá lo que ganaste. Es rápido y queda guardado.</p><div class="movement-tabs" role="group" aria-label="Tipo de movimiento"><button type="button" class="movement-tab active" data-type="income">＋ Ingreso</button><button type="button" class="movement-tab" data-type="expense">− Gasto</button></div>
           <form id="incomeForm">
-            <label for="amount">¿Cuánto ganaste?</label>
+            <label for="amount" id="amountLabel">¿Cuánto ingresó?</label>
             <div class="amount-input"><span>$</span><input id="amount" name="amount" type="number" min="1" step="0.01" placeholder="0" required inputmode="decimal"></div>
             <div class="form-row">
               <div><label for="category">Categoría</label><select id="category" name="category"><option value="Consulta">Consulta</option><option value="Servicio">Servicio</option><option value="Venta">Venta</option><option value="Otro">Otro</option></select></div>
@@ -82,27 +82,27 @@
             </div>
             <label for="note">Descripción <span class="optional">OPCIONAL</span></label>
             <input class="text-input" id="note" name="note" type="text" maxlength="80" placeholder="Ej. Consulta particular">
-            <button class="submit-button" type="submit"><span>＋</span> Guardar ingreso <span class="button-arrow">→</span></button>
+            <button class="submit-button" id="saveMovement" type="submit"><span>＋</span> Guardar ingreso <span class="button-arrow">→</span></button>
             <p class="form-feedback" id="formFeedback" aria-live="polite"></p>
           </form>
         </article>
 
         <article class="panel chart-panel" id="estadisticas">
-          <div class="panel-heading chart-heading"><div><p class="eyebrow">TU EVOLUCIÓN</p><h2>Ingresos en el tiempo</h2></div><select id="chartRange" class="range-select" aria-label="Período del gráfico"><option value="7">Últimos 7 días</option><option value="14">Últimos 14 días</option><option value="30">Últimos 30 días</option></select></div>
+          <div class="panel-heading chart-heading"><div><p class="eyebrow">TU EVOLUCIÓN</p><h2>Ingresos y gastos</h2></div><select id="chartRange" class="range-select" aria-label="Período del gráfico"><option value="7">Últimos 7 días</option><option value="14">Últimos 14 días</option><option value="30">Últimos 30 días</option></select></div>
           <div class="chart-summary"><strong id="chartTotal">$ 0</strong><span>en el período seleccionado</span></div>
           <div class="chart-wrap"><canvas id="incomeChart" role="img" aria-label="Gráfico de ingresos por día"></canvas></div>
-          <div class="chart-legend"><span><i></i> Ingresos diarios</span><span>Montos en pesos argentinos</span></div>
+          <div class="chart-legend"><span><i></i> Ingresos <i class="legend-expense"></i> Gastos</span><span>Montos en pesos argentinos</span></div>
         </article>
       </section>
 
       <section class="bottom-grid">
         <article class="panel history-panel" id="historial">
-          <div class="panel-heading"><div><p class="eyebrow">MOVIMIENTOS</p><h2>Últimos ingresos</h2></div><button class="text-action" id="viewAll">Ver todos <span>→</span></button></div>
-          <div class="history-list" id="historyList"><div class="empty-state"><span>＋</span><strong>Todo empieza con un registro</strong><p>Cuando guardes un ingreso, lo vas a ver acá.</p></div></div>
+          <div class="panel-heading"><div><p class="eyebrow">MOVIMIENTOS</p><h2>Últimos movimientos</h2></div><button class="text-action" id="viewAll">Ver todos <span>→</span></button></div>
+          <div class="history-list" id="historyList"><div class="empty-state"><span>＋</span><strong>Todo empieza con un registro</strong><p>Cuando registres un ingreso o gasto, lo vas a ver acá.</p></div></div>
         </article>
         <article class="panel goal-panel">
           <div class="panel-heading"><div><p class="eyebrow">TU PRÓXIMO PASO</p><h2>Meta diaria</h2></div><span class="goal-icon">◎</span></div>
-          <p class="panel-description">Elegí cuánto querés generar por día y seguí tu progreso.</p>
+          <p class="panel-description">Definí cuánto querés que te quede limpio por día.</p>
           <form id="goalForm"><label for="goalInput">Objetivo en pesos</label><div class="goal-input-wrap"><span>$</span><input id="goalInput" type="number" min="1" step="1" placeholder="Ej. 50000" required></div><button class="secondary-button" type="submit">Actualizar objetivo <span>→</span></button></form>
           <div class="goal-note"><span>✦</span> Las metas claras ayudan a medir tu progreso.</div>
         </article>
