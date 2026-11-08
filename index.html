@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>MedicCRM | Presupuesto diario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="MedicCRM inicio">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>medic<span class="brand-accent">CRM</span><small>GESTIÓN INTELIGENTE</small></span>
+      </a>
+      <div class="side-label">ESPACIO DE TRABAJO</div>
+      <nav class="side-nav">
+        <a class="nav-link active" href="#dashboard"><span class="nav-icon">▦</span> Resumen</a>
+        <a class="nav-link" href="#registrar"><span class="nav-icon">＋</span> Nuevo ingreso</a>
+        <a class="nav-link" href="#estadisticas"><span class="nav-icon">▥</span> Estadísticas</a>
+        <a class="nav-link" href="#historial"><span class="nav-icon">◷</span> Historial</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="tip-card"><span class="tip-spark">✦</span><strong>Un paso a la vez</strong><p>Registrá tus ingresos y mantené tus objetivos siempre a la vista.</p></div>
+        <div class="profile"><div class="avatar">M</div><div><strong>Mi espacio</strong><small>Presupuesto personal</small></div><span class="profile-dot"></span></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+        <div class="breadcrumb">Mi espacio <span>/</span> <strong>Presupuesto diario</strong></div>
+        <div class="topbar-right"><span class="live-dot"></span><span>Datos guardados automáticamente</span><div class="top-avatar">M</div></div>
+      </header>
+
+      <section class="welcome-row">
+        <div><p class="eyebrow" id="todayLabel">TU RESUMEN</p><h1>Tu trabajo, tus resultados<span>.</span></h1><p class="subtitle">Llevá el control de lo que ganás, día a día.</p></div>
+        <button class="date-chip" id="todayChip" type="button"><span>▣</span><span id="todayDate"></span></button>
+      </section>
+
+      <section class="stats-grid" aria-label="Resumen del día">
+        <article class="stat-card primary-stat">
+          <div class="stat-top"><span>Ganado hoy</span><span class="stat-icon">↗</span></div>
+          <div class="stat-value" id="todayTotal">$ 0</div>
+          <div class="stat-foot"><span class="trend-pill" id="todayCount">0 registros</span><span>Ingresos registrados</span></div>
+          <div class="stat-decoration"></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Objetivo diario</span><span class="stat-icon soft-green">◎</span></div>
+          <div class="stat-value" id="goalValue">$ 0</div>
+          <div class="progress-track"><div class="progress-fill" id="goalProgress"></div></div>
+          <div class="stat-foot"><span id="goalPercent">0% alcanzado</span><span id="goalRemaining">Definí tu meta</span></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Promedio diario</span><span class="stat-icon soft-purple">⌁</span></div>
+          <div class="stat-value" id="averageValue">$ 0</div>
+          <div class="stat-foot"><span id="averageDays">Últimos 7 días</span><span>Promedio de ingresos</span></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Total del mes</span><span class="stat-icon soft-orange">▤</span></div>
+          <div class="stat-value" id="monthTotal">$ 0</div>
+          <div class="stat-foot"><span id="monthCount">0 registros</span><span>Acumulado mensual</span></div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel quick-panel" id="registrar">
+          <div class="panel-heading"><div><p class="eyebrow">REGISTRO EXPRESS</p><h2>Sumá un ingreso</h2></div><span class="heading-icon">＋</span></div>
+          <p class="panel-description">Anotá lo que ganaste. Es rápido y queda guardado.</p>
+          <form id="incomeForm">
+            <label for="amount">¿Cuánto ganaste?</label>
+            <div class="amount-input"><span>$</span><input id="amount" name="amount" type="number" min="1" step="0.01" placeholder="0" required inputmode="decimal"></div>
+            <div class="form-row">
+              <div><label for="category">Categoría</label><select id="category" name="category"><option value="Consulta">Consulta</option><option value="Servicio">Servicio</option><option value="Venta">Venta</option><option value="Otro">Otro</option></select></div>
+              <div><label for="entryDate">Fecha</label><input id="entryDate" name="entryDate" type="date" required></div>
+            </div>
+            <label for="note">Descripción <span class="optional">OPCIONAL</span></label>
+            <input class="text-input" id="note" name="note" type="text" maxlength="80" placeholder="Ej. Consulta particular">
+            <button class="submit-button" type="submit"><span>＋</span> Guardar ingreso <span class="button-arrow">→</span></button>
+            <p class="form-feedback" id="formFeedback" aria-live="polite"></p>
+          </form>
+        </article>
+
+        <article class="panel chart-panel" id="estadisticas">
+          <div class="panel-heading chart-heading"><div><p class="eyebrow">TU EVOLUCIÓN</p><h2>Ingresos en el tiempo</h2></div><select id="chartRange" class="range-select" aria-label="Período del gráfico"><option value="7">Últimos 7 días</option><option value="14">Últimos 14 días</option><option value="30">Últimos 30 días</option></select></div>
+          <div class="chart-summary"><strong id="chartTotal">$ 0</strong><span>en el período seleccionado</span></div>
+          <div class="chart-wrap"><canvas id="incomeChart" role="img" aria-label="Gráfico de ingresos por día"></canvas></div>
+          <div class="chart-legend"><span><i></i> Ingresos diarios</span><span>Montos en pesos argentinos</span></div>
+        </article>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel history-panel" id="historial">
+          <div class="panel-heading"><div><p class="eyebrow">MOVIMIENTOS</p><h2>Últimos ingresos</h2></div><button class="text-action" id="viewAll">Ver todos <span>→</span></button></div>
+          <div class="history-list" id="historyList"><div class="empty-state"><span>＋</span><strong>Todo empieza con un registro</strong><p>Cuando guardes un ingreso, lo vas a ver acá.</p></div></div>
+        </article>
+        <article class="panel goal-panel">
+          <div class="panel-heading"><div><p class="eyebrow">TU PRÓXIMO PASO</p><h2>Meta diaria</h2></div><span class="goal-icon">◎</span></div>
+          <p class="panel-description">Elegí cuánto querés generar por día y seguí tu progreso.</p>
+          <form id="goalForm"><label for="goalInput">Objetivo en pesos</label><div class="goal-input-wrap"><span>$</span><input id="goalInput" type="number" min="1" step="1" placeholder="Ej. 50000" required></div><button class="secondary-button" type="submit">Actualizar objetivo <span>→</span></button></form>
+          <div class="goal-note"><span>✦</span> Las metas claras ayudan a medir tu progreso.</div>
+        </article>
+      </section>
+      <footer class="footer"><span>MedicCRM <b>·</b> Presupuesto diario</span><span>Tus números, siempre a mano.</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
